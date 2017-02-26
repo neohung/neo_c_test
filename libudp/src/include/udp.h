@@ -10,7 +10,7 @@
 #include <sys/errno.h>
 #include <string.h>
 #include <arpa/inet.h>
-
+#include <pthread.h>
 typedef struct{
   int socket_fd;
   struct sockaddr_in addr;
@@ -24,8 +24,11 @@ typedef struct{
   char sendbuf[1024];
   char* sendbuf_point;
   int send_nbytes;
+  pthread_t readtid;
+  pthread_t sendtid;
 } udp;
 
+udp create_udpserver(int SERV_PORT);
 int udpserver(int SERV_PORT);
 //int udpserver_read(int socket_fd, char* buf, struct sockaddr* pclient_addr);
 //int udpserver_send(int socket_fd, struct sockaddr client_addr, char* data, int ndata);

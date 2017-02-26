@@ -7,7 +7,7 @@ INCDIR  += -I../../../libneo/src/include \
 	   -I../../../libudp/src/include
 LIBDIR  += -L../../../libneo/lib \
 	   -L../../../libudp/lib
-LIBS	+= -lneo -ludp
+LIBS	+= -lpthread -lneo -ludp
 
 include ../../../common.mk
 

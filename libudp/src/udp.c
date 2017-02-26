@@ -11,11 +11,49 @@
 
 #define MAXNAME 1024
 #define MAXDATA   1024
+
+void* ReadFunc(void* ptr)
+{
+  char *message;
+  message = (char *) ptr;
+  printf("ReadFunc [%s]\n",message);
+  pthread_exit((void *)1234);
+}
+
+
 //socket() -> bind() -> recvfrom() -> sendto()
+udp create_udpserver(int SERV_PORT)
+{
+  udp u;
+  if ((u.socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) <0) {
+    perror ("socket failed");
+    exit(EXIT_FAILURE);
+  }
+  memset((char *) &u.addr, 0, sizeof(u.addr));
+  u.addr.sin_family = AF_INET;
+  u.addr.sin_port = htons(SERV_PORT);
+  u.addr.sin_addr.s_addr = htonl(INADDR_ANY);
+  //bind socket to port
+  if( bind(u.socket_fd , (struct sockaddr*)&u.addr, sizeof(u.addr) ) < 0)
+  {
+    perror ("bind failed\n");
+    exit(EXIT_FAILURE);
+  }
+  
+  char *message1 = "Thread 1";
+  void *ret;
+  pthread_create(&u.readtid, NULL, ReadFunc, (void*) message1);
+  pthread_join( u.readtid, &ret);
+  printf("return value from thread1 = %d\n",ret);
+  return u;
+}
+
+
 int udpserver(int SERV_PORT)
 {
  printf("%s\n",__func__);
- int socket_fd;   /* file description into transport */
+
+ int socket_fd;  
 struct sockaddr_in si_me;
  if ((socket_fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) <0) {
                 perror ("socket failed");

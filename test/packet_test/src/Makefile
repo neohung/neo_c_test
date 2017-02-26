@@ -12,7 +12,7 @@ LIBDIR  += -L../../../libneo/lib \
 	   -L../../../libudp/lib \
 	   -L../../../libpacket/lib
 
-LIBS	+= -lneo -ludp -lpacket
+LIBS	+= -lpthread -lneo -ludp -lpacket
 
 include ../../../common.mk
 

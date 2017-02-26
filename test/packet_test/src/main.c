@@ -2,6 +2,9 @@
 #include "udp.h"
 int main(void)
 {
+  udp us = create_udpserver(1234);
+  
+/*
   int id = udpserver(1234);
   char buf[1024];
   struct sockaddr_in client_addr;
@@ -19,5 +22,6 @@ while(1){
   n = sprintf(buf,"SERVER say %d",c);
   udpserver_send(id, &client_addr, &l, buf, n);
 }
+*/
   return 0;
 }

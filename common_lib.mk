@@ -3,6 +3,7 @@ CC = $(PREFIX)gcc
 AR = $(PREFIX)ar
 #CFLAGS		+= -Os -g -Wall -Wextra $(INCDIR)  -mmcu=msp430g2553
 CFLAGS		+= -Os -g -Wall -Wextra $(INCDIR)
+LDFLAGS         += $(LIBDIR) $(LIBS)
 ARFLAGS		 = rcs
 # where to search for headers
 INCDIR      += -I./include -I$(HOME)/msp430/include
@@ -54,7 +55,7 @@ prepare:
 	test -d $(LIBDIR) || mkdir $(LIBDIR)
 
 %.o: %.c Makefile
-	@$(CC) -c $(CFLAGS) $< -o $@ 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \
+	@$(CC) -c $(CFLAGS) $(LDFLAGS) $< -o $@ 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \
 	printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
 	printf "$(ERROR_COLOR)=======================================================\n"; \
 	cat $@.log; \
@@ -71,7 +72,7 @@ prepare:
 	exit $$RESULT
 
 %.o: %.cpp Makefile
-	@$(CC) -c $(CFLAGS) $< -o $@ 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \
+	@$(CC) -c $(CFLAGS) $(LDFLAGS) $< -o $@ 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \
 	printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
 	elif [ -s $@.log ]; then \
 	printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
