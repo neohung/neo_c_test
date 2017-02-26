@@ -1,5 +1,5 @@
 VERSION  = 0.1
-TARGET   = neo-test_v$(VERSION)
+TARGET   = neo-udpclient_v$(VERSION)
 BINARY	 = $(TARGET)
 BINDIR   = ../bin
 OBJS	+= main.o 

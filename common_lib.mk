@@ -41,11 +41,17 @@ COM_STRING   = "Compiling"
 SRC = $(wildcard *.c)
 HDR = $(wildcard include/*.h)
 
-all: $(LIBNAME).a
+all: target
+
+target: prepare $(LIBNAME).a
+
 
 $(LIBNAME).a: $(OBJS)
 	@#printf "  AR      $(subst $(shell pwd)/,,$(@))\n"
 	$(AR) $(ARFLAGS) $@ $^ && cp $(LIBNAME).a $(LIBDIR)/.
+
+prepare:
+	test -d $(LIBDIR) || mkdir $(LIBDIR)
 
 %.o: %.c Makefile
 	@$(CC) -c $(CFLAGS) $< -o $@ 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \

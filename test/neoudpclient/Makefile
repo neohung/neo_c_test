@@ -9,4 +9,3 @@ target:
 clean:
 	make -C $(SRCDIR) clean
 	rm -fr doc/*
-	#rm -f bin/firmware.*

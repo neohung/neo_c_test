@@ -5,6 +5,7 @@ INCDIR      += -I./include -I$(HOME)/msp430/include
 CFLAGS		+= -Os -g -Wall -Wextra $(INCDIR)
 LDFLAGS         += $(LIBDIR) $(LIBS)
 ARFLAGS		= rcs
+BINDIR          = ../bin
 # doxygen executable
 DOXYGEN = doxygen
 # doxygen flags
@@ -38,7 +39,13 @@ COM_STRING   = "Compiling"
 SRC = $(wildcard *.c)
 HDR = $(wildcard include/*.h)
 
-all: $(BINARY)
+all: target
+
+target: prepare $(BINARY)
+	cp $(BINARY) $(BINDIR)/.
+
+prepare:
+	test -d $(BINDIR) || mkdir $(BINDIR)
 
 $(BINARY): $(OBJS) 
 	@#$(LD) $(OBJS) $(LDFLAGS) -o $(*).neo 2> $@.log; RESULT=$$?; if [ $$RESULT -ne 0 ]; then \;

@@ -7,7 +7,7 @@
 #endif
 #endif
 
-static int a = 1;
+//static int a = 1;
 
 /** @brief 印出"t2"
  *  @date 2017/02/28
@@ -58,12 +58,15 @@ void t1(void)
  *  @param argv 表示輸入變數的矩陣
  *  @return 成功返回0, 失敗返回非0
  */
-int main(int argc, char** argv)
-{
+
+//int main(int argc, char** argv)
+//{
   /** 可以撰寫多行註解的寫法
       這裡是補充說明的地方
     */
-  printf("neo\n");   ///用來撰寫單行註解的寫法, 補充說明的地方
-  t1();
-  return 0;
-}
+  //argc = 0;
+  //argv = NULL;
+  //printf("neo\n");   ///用來撰寫單行註解的寫法, 補充說明的地方
+  //t1();
+  //return 0;
+//}
